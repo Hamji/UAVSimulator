@@ -49,6 +49,11 @@ class ProcessOperator:
         #  # loop : check episode is end
         #  # give state & reward to model
         #  # give action to env
+        #  # Batch size memory 이 개념이 이해가 잘 안감...
+
+        # model update (epilon)
+        # episode rewards statistics appends
+        # print
 
         return
 

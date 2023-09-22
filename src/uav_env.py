@@ -33,7 +33,6 @@ class UavEnvironment:
 
     def step(self, action):
         self.decision_cycle()
-
         self.empty_cycle()
         self.capture_cycle()
         self.transmission_cycle()
