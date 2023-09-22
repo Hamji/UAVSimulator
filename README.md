@@ -1,6 +1,6 @@
-# UAVEnvironment
+# UAVSimulator
 
-해당 프로젝트 명을 UAVE으로 명명 하겠습니다...
+해당 프로젝트 명을 UAVS으로 명명 하겠습니다...
 ㄴ
 ## Requirements
 
