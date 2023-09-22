@@ -30,7 +30,7 @@ if __name__ == "__main__":
     else:
         print("Not supported OS")
 
-    print("Start UAV Training")
+    print("Operator start to run")
     # Scenario Logic Start
     opt = ProcessOperator()
     opt.run()
