@@ -3,6 +3,8 @@ import tensorflow as tf
 import os
 import platform
 
+from src.process_operator import ProcessOperator
+
 if __name__ == "__main__":
     # Just Check OS & GPU enabled
     current_os = platform.system()
@@ -28,4 +30,7 @@ if __name__ == "__main__":
     else:
         print("Not supported OS")
 
-    ## Scenario Logic Start
+    print("Start UAV Training")
+    # Scenario Logic Start
+    opt = ProcessOperator()
+    opt.run()

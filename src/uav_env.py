@@ -19,11 +19,14 @@ class UavEnvironment:
     def step(self, action):
         pass
 
+    # check, Is scenario end
     def is_scenario_end(self):
         pass
 
+    # Calculate rewards of this step
     def calculate_rewards(self):
         pass
 
-    def caculate_state(self):
+    # Calculate state of this step
+    def calculate_state(self):
         pass

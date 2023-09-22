@@ -1,4 +1,9 @@
-class ProcessManager:
+from src.uav_config import UavConfig
+from src.uav_env import UavEnvironment
+from src.uav_model_manager import UavModelManager
+
+
+class ProcessOperator:
     # class object
     uav_model_manager = None
     uav_env = None
@@ -6,11 +11,14 @@ class ProcessManager:
 
     # initialize
     def __init__(self):
-        pass
+        self.uav_config = UavConfig()
+        self.uav_config.load_config()
 
-    # load config file & setting config class
-    def load_config(self):
-        pass
+        self.uav_model_manager = UavModelManager()
+
+        self.uav_env = UavEnvironment()
+
+        print("Operator Initialization Success")
 
     # scenario logic start
     def run(self):
