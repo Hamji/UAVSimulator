@@ -11,6 +11,7 @@ class UavConfig:
     __maximum_step: int
     __maximum_scenario: int
     __model: str
+    __batch_size: int
 
     def __init__(self):
         self.__path     = './cfg/uav_config.cfg'
@@ -25,6 +26,7 @@ class UavConfig:
         self.__maximum_step     = int(self.__config.get('COMMON', 'MAXIMUM_STEP'))
         self.__maximum_scenario = int(self.__config.get('COMMON', 'MAXIMUM_SCENARIO'))
         self.__model            =     self.__config.get('COMMON', 'MODEL')
+        self.__batch_size       = int(self.__config.get('COMMON', 'BATCH_SIZE'))
 
     @property
     def mode(self):
@@ -49,3 +51,7 @@ class UavConfig:
     @property
     def model(self):
         return self.__model
+
+    @property
+    def batch_size(self):
+        return self.__batch_size
