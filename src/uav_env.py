@@ -1,4 +1,3 @@
-from src.data.env_result import EnvResult
 from src.sim_enums import SCENARIO
 from src.uav import Uav
 from src.uav_config import UavConfig
@@ -21,7 +20,7 @@ class UavEnvironment:
         self.__uav_arr = [Uav(i) for i in range(0, self.__num_of_uav)]
         self.__goal = [self.__grid_size - 1, self.__grid_size - 1]
         # Hover, North, East, South, West
-        self.actions = [[0, 0], [0, 1], [1, 0], [0, -1], [-1, 0]]
+        self.__actions = [[0, 0], [0, 1], [1, 0], [0, -1], [-1, 0]]
 
     def reset_env(self):
         self.__positions = [[0, 0] for _ in range(self.__num_of_uav)]
@@ -62,7 +61,6 @@ class UavEnvironment:
 
         return next_states, rewards, dones
 
-
     def empty_cycle(self):
         pass
 
@@ -73,12 +71,12 @@ class UavEnvironment:
         pass
 
     def step(self, actions):
-        result = self.decision_cycle(actions)
+        next_states, rewards, dones = self.decision_cycle(actions)
         # self.empty_cycle()
         # self.capture_cycle()
         # self.transmission_cycle()
 
-        return result
+        return next_states, rewards, dones
 
     # check, Is scenario end
     def is_scenario_end(self, scenario: SCENARIO):
@@ -88,8 +86,7 @@ class UavEnvironment:
             return False
 
     def is_out_of_range(self, pos):
-        return pos[0] < 0 or pos[0] >= self.__grid_size or pos[1] < 0 or pos[1] >= self.__grid_size
-
+        return not (0 <= pos[0] < self.__grid_size and 0 <= pos[1] < self.__grid_size)
 
     # Calculate rewards of this step
     def calculate_rewards(self, scenario: SCENARIO):

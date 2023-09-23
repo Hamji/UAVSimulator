@@ -1,7 +1,7 @@
 from src.sim_enums import MODE
 from src.uav_config import UavConfig
 from src.uav_env import UavEnvironment
-from src.uav_model_manager import UavModelManager
+from src.model.sample_dqn_manager import SampleDQNManager
 
 
 class ProcessOperator:
@@ -25,7 +25,7 @@ class ProcessOperator:
         self.uav_config = UavConfig()
         self.uav_config.load_config()
 
-        self.uav_model_manager = UavModelManager()
+        self.uav_model_manager = SampleDQNManager(self.uav_config)
 
         self.uav_env = UavEnvironment(self.uav_config)
 
@@ -59,7 +59,7 @@ class ProcessOperator:
         print("Model Training Start")
         print("Model : {0}".format(self.uav_config.model))
         scenario_idx = 0
-        total_reward = 0
+
         # loop
         while scenario_idx < self.maximum_scenario:
             # initialize episode
@@ -74,29 +74,18 @@ class ProcessOperator:
 
             while not all(dones) and step_idx < self.maximum_step:
                 actions = self.uav_model_manager.get_action(states)
-                dones, next_states, rewards = self.uav_env.step(actions)
-
-                # process batch memory if you want #
-                memory_data = (states, actions, rewards, next_states, dones)
-                self.uav_model_manager.push(memory_data)
-                if self.uav_model_manager.get_memory_size() > self.batch_size:
-                    # here!!
-                    pass
-                ####################################
+                next_states, rewards, dones = self.uav_env.step(actions)
 
                 total_reward += sum(rewards)
-                state = next_states
+                self.uav_model_manager.update((states, actions, rewards, next_states, dones))
 
+                state = next_states
                 step_idx += 1
 
-        # model update
-        self.uav_model_manager.update()
-
-        # episode rewards statistics appends
-        self.episode_reward.append(total_reward)
-
-        print(
-            f"Episode {scenario_idx + 1}/{scenario_idx}, Total Reward: {total_reward}, Epsilon: {self.uav_model_manager.epsilon:.2f}")
-        scenario_idx += 1
+            # episode rewards statistics appends
+            self.episode_reward.append(total_reward)
+            self.uav_model_manager.update_epsilon()
+            print(f"Episode {scenario_idx + 1}/{self.maximum_scenario}, Total Reward: {total_reward}, Epsilon: {self.uav_model_manager.epsilon:.2f}")
+            scenario_idx += 1
 
         return
