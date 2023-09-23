@@ -24,7 +24,7 @@ class UavEnvironment:
         self.actions = [[0, 0], [0, 1], [1, 0], [0, -1], [-1, 0]]
 
     def reset_env(self):
-        self__positions = [[0, 0] for _ in range(self.__num_of_uav)]
+        self.__positions = [[0, 0] for _ in range(self.__num_of_uav)]
         states = []
         for position in self.__positions:
             states.extend(self._get_state_from_position(position))

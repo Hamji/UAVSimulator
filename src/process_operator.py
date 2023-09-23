@@ -41,15 +41,17 @@ class ProcessOperator:
 
     # scenario logic start
     def run(self):
-        if self.mode == MODE.TEST:
+        print("Operator start to run")
+        if self.mode == MODE.TEST.value:
             self.test_run()
-        elif self.mode == MODE.TRAINING:
+        elif self.mode == MODE.TRAINING.value:
             self.training_run()
         else:
             return
 
     # test logic
     def test_run(self):
+        print("Model Test Start")
         pass
 
     # training logic
