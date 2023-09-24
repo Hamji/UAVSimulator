@@ -2,13 +2,14 @@ import random
 
 from torch import nn
 
+from src.model.AbstractManager import AbstractManager
 from src.model.sample_dqn import SampleDQN
 from src.replay_memory import ReplayMemory
 from src.uav_config import UavConfig
 import torch
 
 
-class SampleDQNManager:
+class SampleDQNManager(AbstractManager):
     epsilon: float
     model_type: str
     model = None
@@ -24,6 +25,7 @@ class SampleDQNManager:
     criterion = None
 
     def __init__(self, config: UavConfig):
+        super().__init__()
         self.memory = ReplayMemory(capacity=1000)
         self.model_type = config.model
         self.num_of_uav = config.num_of_uav

@@ -72,6 +72,7 @@ class ProcessOperator:
                 print("Env Scenario reset Error!")
                 break
 
+            # self.uav_env.is_scenario_end?
             while not all(dones) and step_idx < self.maximum_step:
                 actions = self.uav_model_manager.get_action(states)
                 next_states, rewards, dones = self.uav_env.step(actions)

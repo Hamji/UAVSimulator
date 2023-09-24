@@ -1,3 +1,5 @@
+import random
+
 from src.sim_enums import SCENARIO
 from src.uav import Uav
 from src.uav_config import UavConfig
@@ -18,7 +20,7 @@ class UavEnvironment:
         self.__num_of_uav = config.num_of_uav
         self.__maximum_step = config.maximum_step
         self.__uav_arr = [Uav(i) for i in range(0, self.__num_of_uav)]
-        self.__goal = [self.__grid_size - 1, self.__grid_size - 1]
+        self.__goal = [random.randint(0, self.__grid_size) for _ in range(2)]
         # Hover, North, East, South, West
         self.__actions = [[0, 0], [0, 1], [1, 0], [0, -1], [-1, 0]]
 
